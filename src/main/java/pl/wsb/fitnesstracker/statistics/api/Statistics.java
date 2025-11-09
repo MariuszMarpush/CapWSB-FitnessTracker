@@ -22,7 +22,7 @@ public class Statistics {
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private User user
+    private User user;
 
     @Column(name = "total_trainings", nullable = false)
     private int totalTrainings;
