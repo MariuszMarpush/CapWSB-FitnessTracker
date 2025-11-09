@@ -24,6 +24,7 @@ public class Statistics {
     @JoinColumn(name = "user_id")
     private User user;
 
+
     @Column(name = "total_trainings", nullable = false)
     private int totalTrainings;
 
