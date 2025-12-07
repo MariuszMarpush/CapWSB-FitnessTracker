@@ -2,8 +2,10 @@ package pl.wsb.fitnesstracker.user.internal;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.wsb.fitnesstracker.user.api.User;
 import pl.wsb.fitnesstracker.user.api.UserDto;
 
 import java.util.List;
@@ -27,6 +29,30 @@ class UserController {
                 .stream()
                 .map(userMapper::toDto)
                 .toList();
+    }
+
+    @GetMapping("/simple")
+    public List<UserSimpleDto> getAllUsersSimple(){
+        return userService.findAllUsers()
+                .stream()
+                .map(userMapper::toSimpleDto)
+                .toList();
+    }
+
+    @GetMapping("{id}")
+    public UserDto getAllInformationForUserById(@PathVariable Long id){
+        System.out.printf("log message");
+        return null;
+    }
+    @GetMapping("{email}")
+    public UserDto getAllInformationForUserById(@PathVariable String email){
+        System.out.printf("log message");
+        return null;
+    }
+    @GetMapping("/email/{email}")
+    public UserDto getAllInformationForUserByEmail(@PathVariable String email){
+        System.out.println("Searching by email: " + email);
+        return userMapper.toDto(userService.getUserByEmail(email).get());
     }
 }
 
