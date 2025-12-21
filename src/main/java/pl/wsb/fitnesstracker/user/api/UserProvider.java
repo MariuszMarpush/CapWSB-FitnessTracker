@@ -30,4 +30,5 @@ public interface UserProvider {
      */
     List<User> findAllUsers();
 
+    User deleteUser(User user);
 }
