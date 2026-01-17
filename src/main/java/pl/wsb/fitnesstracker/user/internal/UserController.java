@@ -44,8 +44,10 @@ class UserController {
 
     @GetMapping("{id}")
     public UserDto getAllInformationForUserById(@PathVariable Long id){
-        System.out.printf("log message");
-        return null;
+        return userService.getUser(id)
+                .map(userMapper::toDto)
+                .orElse(null);
+
     }
 //    @GetMapping("{email}")
 //    public UserDto getAllInformationForUserById(@PathVariable String email){
@@ -86,6 +88,18 @@ class UserController {
         );
         User updatedUser = userService.updateUser(id, user);
         return userMapper.toDto(updatedUser);
+    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserDto createUser(@RequestBody UserDto userDto) {
+        User user = new User(
+                userDto.firstName(),
+                userDto.lastName(),
+                userDto.birthdate(),
+                userDto.email()
+        );
+        User createdUser = userService.createUser(user);
+        return userMapper.toDto(createdUser);
     }
 }
 
